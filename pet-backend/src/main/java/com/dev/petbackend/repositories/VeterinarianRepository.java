@@ -1,4 +1,7 @@
 package com.dev.petbackend.repositories;
 
-public interface VeterinarianRepository {
+import com.dev.petbackend.model.Veterinarian;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface VeterinarianRepository extends JpaRepository<Veterinarian, Long> {
 }

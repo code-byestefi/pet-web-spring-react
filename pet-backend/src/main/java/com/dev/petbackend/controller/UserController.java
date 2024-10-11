@@ -1,7 +1,8 @@
 package com.dev.petbackend.controller;
 
 import com.dev.petbackend.model.User;
-import com.dev.petbackend.services.UserService;
+import com.dev.petbackend.model.dto.request.RegistrationRequest;
+import com.dev.petbackend.services.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +17,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public void add(@RequestBody User user) {
-        userService.add(user);
+    public User add(@RequestBody RegistrationRequest request) {
+        return userService.add(request);
     }
 }
