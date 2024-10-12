@@ -51,6 +51,20 @@ public class UserController {
         }
     }
 
+    @GetMapping(UrlMapping.GET_USER_BY_ID)
+    public ResponseEntity<ApiResponse> getById(@PathVariable Long userId) {
+        try {
+            User user = userService.findById(userId);
+            UserDto deletedUser = entityConverter.mapEntityToDto(user, UserDto.class);
+            return ResponseEntity.ok(new ApiResponse(FeedBackMessage.FOUND, deletedUser));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+
+        } catch (Exception e) {
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
+        }
+    }
+
 
 
 }

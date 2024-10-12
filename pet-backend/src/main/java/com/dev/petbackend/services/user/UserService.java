@@ -37,7 +37,9 @@ public class UserService implements lUserService {
         return userRepository.save(user);
     }
 
-    private User findById(Long userId) {
+    public User findById(Long userId) {
         return userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
+
+
 }
