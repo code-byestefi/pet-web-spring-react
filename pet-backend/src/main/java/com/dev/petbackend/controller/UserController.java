@@ -15,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.*;
 
 @RequiredArgsConstructor
@@ -55,8 +57,8 @@ public class UserController {
     public ResponseEntity<ApiResponse> getById(@PathVariable Long userId) {
         try {
             User user = userService.findById(userId);
-            UserDto deletedUser = entityConverter.mapEntityToDto(user, UserDto.class);
-            return ResponseEntity.ok(new ApiResponse(FeedBackMessage.FOUND, deletedUser));
+            UserDto theUser = entityConverter.mapEntityToDto(user, UserDto.class);
+            return ResponseEntity.status(FOUND).body(new ApiResponse(FeedBackMessage.FOUND, theUser));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
 
@@ -65,6 +67,23 @@ public class UserController {
         }
     }
 
+    @DeleteMapping(UrlMapping.DELETE_USER_BY_ID)
+    public ResponseEntity<ApiResponse> deleteById(@PathVariable Long userId) {
+        try {
+            userService.delete(userId);
+            return ResponseEntity.ok(new ApiResponse(FeedBackMessage.DELETE_SUCCESS, null));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+        } catch (Exception e) {
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
+        }
+    }
+
+    @GetMapping(UrlMapping.GET_ALL_USERS)
+    public ResponseEntity<ApiResponse> getAllUsers() {
+        List<UserDto> theUsers = userService.getAllUsers();
+        return ResponseEntity.status(FOUND).body(new ApiResponse(FeedBackMessage.FOUND, theUsers));
+    }
 
 
 }
