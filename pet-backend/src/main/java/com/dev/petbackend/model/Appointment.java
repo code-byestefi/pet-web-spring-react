@@ -1,6 +1,7 @@
 package com.dev.petbackend.model;
 
 import com.dev.petbackend.model.enums.AppointmentStatus;
+import com.dev.petbackend.model.factory.Pet;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Entity
@@ -48,6 +50,9 @@ public class Appointment {
     @JoinColumn(name = "recipient")
     @ManyToOne(fetch = FetchType.LAZY)
     private User veterinarian;
+
+    @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL)
+    List<Pet> pets = new ArrayList<>();
 
     public void addPatient(User sender) {
         this.setPatient(sender);

@@ -4,15 +4,18 @@ import com.dev.petbackend.exceptions.ResourceNotFoundException;
 import com.dev.petbackend.model.Appointment;
 import com.dev.petbackend.model.User;
 import com.dev.petbackend.model.dto.request.AppointmentUpdateRequest;
+import com.dev.petbackend.model.dto.request.BookAppointmentRequest;
 import com.dev.petbackend.model.enums.AppointmentStatus;
+import com.dev.petbackend.model.factory.Pet;
 import com.dev.petbackend.repositories.AppointmentRepository;
 import com.dev.petbackend.repositories.UserRepository;
+import com.dev.petbackend.services.pet.lPetService;
 import com.dev.petbackend.utils.FeedBackMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
@@ -23,12 +26,20 @@ import java.util.Optional;
 public class AppointmentService implements lAppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final UserRepository userRepository;
+    private final lPetService petService;
 
+    @Transactional
     @Override
-    public Appointment createAppointment(Appointment appointment, Long senderId, Long recipientId) {
+    public Appointment createAppointment(BookAppointmentRequest request, Long senderId, Long recipientId) {
         Optional<User> sender = userRepository.findById(senderId);
         Optional<User> recipient = userRepository.findById(recipientId);
         if (sender.isPresent() && recipient.isPresent()) {
+            Appointment appointment = request.getAppointment();
+            List<Pet> pets = request.getPets();
+            pets.forEach(pet ->pet.setAppointment(appointment));
+            List<Pet> savedPets = petService.savePetForAppointment(pets);
+            appointment.setPets(savedPets);
+
             appointment.addPatient(sender.get());
             appointment.addVeterinarian(recipient.get());
             appointment.setAppointmentNo();
