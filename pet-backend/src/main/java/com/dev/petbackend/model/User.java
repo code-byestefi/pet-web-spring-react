@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -30,8 +31,12 @@ public class User {
 
     @Transient
     private String specialization;
+
     @Transient
-    List<Appointment> appointments;
+    private List<Appointment> appointments = new ArrayList<>();
+
+    @Transient
+    private List<Review> reviews = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Photo photo;
