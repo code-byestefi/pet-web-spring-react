@@ -3,6 +3,7 @@ package com.dev.petbackend.controller;
 import com.dev.petbackend.exceptions.ResourceNotFoundException;
 import com.dev.petbackend.model.Appointment;
 import com.dev.petbackend.model.dto.request.AppointmentUpdateRequest;
+import com.dev.petbackend.model.dto.request.BookAppointmentRequest;
 import com.dev.petbackend.model.dto.response.ApiResponse;
 import com.dev.petbackend.services.appointment.AppointmentService;
 import com.dev.petbackend.utils.FeedBackMessage;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Book;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
@@ -34,11 +36,11 @@ public class AppointmentController {
     }
     @PostMapping(UrlMapping.BOOK_APPOINTMENT)
     public ResponseEntity<ApiResponse> bookAppointment(
-            @RequestBody Appointment appointment,
+            @RequestBody BookAppointmentRequest request,
             @RequestParam Long senderId,
             @RequestParam Long recipientId) {
         try {
-            Appointment theAppointment = appointmentService.createAppointment(appointment, senderId, recipientId);
+            Appointment theAppointment = appointmentService.createAppointment(request, senderId, recipientId);
             return ResponseEntity.ok(new ApiResponse(FeedBackMessage.SUCCESS, theAppointment));
         }catch (ResourceNotFoundException e){
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
