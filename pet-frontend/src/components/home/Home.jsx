@@ -84,7 +84,7 @@ const Home = () => {
                 </h4>
                 <hr />
 
-                <p className="text-center">Aqui pondremos los veterinarios para scrollear hacia abajo</p>
+                <p className="text-center">Aqui abajo estarán las reviews</p>
             </div>
         </Container>
     );
