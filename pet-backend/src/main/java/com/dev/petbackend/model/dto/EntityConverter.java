@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class EntityConverter<T, D> {
-
     private final ModelMapper modelMapper;
 
     public D mapEntityToDto(T entity, Class<D> dtoClass) {

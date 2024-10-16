@@ -5,6 +5,7 @@ import com.dev.petbackend.model.dto.UserDto;
 import com.dev.petbackend.model.dto.request.RegistrationRequest;
 import com.dev.petbackend.model.dto.request.UserUpdateRequest;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface lUserService {
@@ -17,4 +18,6 @@ public interface lUserService {
     void delete(Long userId);
 
     List<UserDto> getAllUsers();
+
+    UserDto getUserWithDetails(Long userId) throws SQLException;
 }

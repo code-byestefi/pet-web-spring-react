@@ -1,6 +1,7 @@
 package com.dev.petbackend.services.appointment;
 
 import com.dev.petbackend.model.Appointment;
+import com.dev.petbackend.model.dto.AppointmentDto;
 import com.dev.petbackend.model.dto.request.AppointmentUpdateRequest;
 import com.dev.petbackend.model.dto.request.BookAppointmentRequest;
 
@@ -16,4 +17,5 @@ public interface lAppointmentService {
     Appointment getAppointmentById(Long id);
     Appointment getAppointmentByNo(String appointmentNo);
 
+    List<AppointmentDto> getUserAppointments(Long userId);
 }
