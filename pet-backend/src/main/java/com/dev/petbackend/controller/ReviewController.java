@@ -9,6 +9,7 @@ import com.dev.petbackend.model.dto.response.ApiResponse;
 import com.dev.petbackend.services.review.lReviewService;
 import com.dev.petbackend.utils.FeedBackMessage;
 import com.dev.petbackend.utils.UrlMapping;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ import static org.springframework.http.HttpStatus.*;
 @RestController
 @RequestMapping(UrlMapping.REVIEWS)
 @RequiredArgsConstructor
+@Tag(name = "Review")
 public class ReviewController {
     private final lReviewService reviewService;
     private final ModelMapper modelMapper;

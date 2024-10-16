@@ -8,8 +8,8 @@ import com.dev.petbackend.model.dto.response.ApiResponse;
 import com.dev.petbackend.services.appointment.AppointmentService;
 import com.dev.petbackend.utils.FeedBackMessage;
 import com.dev.petbackend.utils.UrlMapping;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +21,7 @@ import static org.springframework.http.HttpStatus.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(UrlMapping.APPOINTMENTS)
+@Tag(name = "Appointment")
 public class AppointmentController {
     private final AppointmentService appointmentService;
 

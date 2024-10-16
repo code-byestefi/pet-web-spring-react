@@ -7,6 +7,7 @@ import com.dev.petbackend.services.pet.PetService;
 import com.dev.petbackend.services.pet.lPetService;
 import com.dev.petbackend.utils.FeedBackMessage;
 import com.dev.petbackend.utils.UrlMapping;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @RestController
 @RequestMapping(UrlMapping.PETS)
 @RequiredArgsConstructor
+@Tag(name = "Pet")
 public class PetController {
 
     private final lPetService petService;

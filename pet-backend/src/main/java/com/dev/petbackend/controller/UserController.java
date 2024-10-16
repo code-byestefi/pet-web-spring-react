@@ -11,6 +11,7 @@ import com.dev.petbackend.model.dto.response.ApiResponse;
 import com.dev.petbackend.services.user.UserService;
 import com.dev.petbackend.utils.FeedBackMessage;
 import com.dev.petbackend.utils.UrlMapping;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ import static org.springframework.http.HttpStatus.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(UrlMapping.USERS)
+@Tag(name = "User")
 public class UserController {
 
     private final UserService userService;
