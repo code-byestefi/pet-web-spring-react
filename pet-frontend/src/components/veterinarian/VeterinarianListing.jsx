@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import VeterinarianCard from "./VeterinarianCard";
 import { getVeterinarians } from "./VeterinarianService";
@@ -36,6 +36,7 @@ const VeterinarianListing = () => {
     };
 
 
+
     if (veterinarians.length === 0) {
         return <p>No veterinarians found at this tiime</p>;
     }
@@ -43,7 +44,7 @@ const VeterinarianListing = () => {
     return (
         <Container>
             <Row className='justify-content-center'>
-                <h2 className='text-center mb-4 mt-4'>Nuestros Veterinarios</h2>
+                <h2 className='text-center mb-4 mt-4'>Meet Our Veterinarians</h2>
             </Row>
 
             <Row className='justify-content-center'>

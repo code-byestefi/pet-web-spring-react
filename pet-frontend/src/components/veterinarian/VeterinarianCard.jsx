@@ -1,6 +1,7 @@
+import React from "react";
 import { Accordion, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import UserImage from "../common/UserImage.jsx";
+import UserImage from "../common/UserImage";
 import placeholder from "../../assets/images/placeholder.jpg";
 
 const VeterinarianCard = ({ vet }) => {
@@ -20,23 +21,23 @@ const VeterinarianCard = ({ vet }) => {
                         </div>
                         <div className='flex-grow-1 ml-3 px-5'>
                             <Card.Title className='title'>
-                                Dr.{vet.firstName} {vet.lastName}
+                                Dr. {vet.firstName} {vet.lastName}
                             </Card.Title>
                             <Card.Title>
                                 <h6>{vet.specialization}</h6>
                             </Card.Title>
                             <Card.Text className='review rating-stars'>
-                                Reviews: stars
+                                Reviews: Some stars
                             </Card.Text>
-                            <Link to={""} className="link">
-                                Calendario de Turnos
+                            <Link to={`/book-appointment/${vet.id}/new-appointment`} className="link">
+                                Book appointment
                             </Link>
                         </div>
                     </Accordion.Header>
                     <Accordion.Body>
                         <div>
                             <Link to={""} className='link-2'>
-                                Mira opiniones de pacientes sobre
+                                See what peopple are saying about
                             </Link>{" "}
                             <span className='margin-left-space'>Dr.{vet.firstName}</span>
                         </div>

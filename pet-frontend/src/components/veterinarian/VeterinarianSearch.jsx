@@ -3,9 +3,9 @@ import UseMessageAlerts from "../../hooks/UseMessageAlerts.js";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { format } from "date-fns";
 import AlertMessage from "../common/AlertMessage";
 import { findAvailableVeterinarians } from "./VeterinarianService";
+import { dateTimeFormatter } from "../../utils/utilities.js";
 
 const VeterinarianSearch = ({ onSearchResult }) => {
     const [searchQuery, setSearchQuery] = useState({
@@ -22,10 +22,17 @@ const VeterinarianSearch = ({ onSearchResult }) => {
     };
 
     const handleDateChange = (date) => {
-        setSearchQuery({ ...searchQuery, date });
+        setSearchQuery((prevState) => ({
+            ...prevState,
+            date: date,
+        }));
     };
+
     const handleTimeChange = (time) => {
-        setSearchQuery({ ...searchQuery, time });
+        setSearchQuery((prevState) => ({
+            ...prevState,
+            date: time,
+        }));
     };
 
     const handleDateTimeToggle = (e) => {
@@ -38,14 +45,15 @@ const VeterinarianSearch = ({ onSearchResult }) => {
 
     const handleSearch = async (e) => {
         e.preventDefault();
+        const { date, time } = searchQuery;
+        const{formattedDate, formattedTime} = dateTimeFormatter(date, time)
+
         let searchParams = { specialization: searchQuery.specialization };
 
         if (searchQuery.date) {
-            const formattedDate = format(searchQuery.date, "yyyy-MM-dd");
             searchParams.date = formattedDate;
         }
         if (searchQuery.time) {
-            const formattedTime = format(searchQuery.time, "HH:mm");
             searchParams.time = formattedTime;
         }
         try {
@@ -70,19 +78,19 @@ const VeterinarianSearch = ({ onSearchResult }) => {
 
     return (
         <section className='stickyFormContainer'>
-            <h3>Encontra tu veterinario</h3>
+            <h3>Find a Veterinarian</h3>
             <Form onSubmit={handleSearch}>
                 <Form.Group>
-                    <Form.Label>Especialidad</Form.Label>
+                    <Form.Label>Specialization</Form.Label>
                     <Form.Control
                         as='select'
                         name='specialization'
                         value={searchQuery.specialization}
                         onChange={handleInputchange}>
-                        <option value=''>Seleccionar especialidad</option>
-                        <option value='Surgeon'>Cirujano</option>
-                        <option value='Urologist'>Urologia</option>
-                        <option value='Other'>Otros</option>
+                        <option value=''>Select Specialization</option>
+                        <option value='Surgeon'>Surgeon</option>
+                        <option value='Urologist'>Urologist</option>
+                        <option value='Other'>Other</option>
                     </Form.Control>
                 </Form.Group>
 
@@ -92,16 +100,16 @@ const VeterinarianSearch = ({ onSearchResult }) => {
                             <Form.Group className='mb-3 mt-3'>
                                 <Form.Check
                                     type='checkbox'
-                                    label='Incluir fecha y tiempo disponible'
+                                    label='Include Date and Time Availabilty'
                                     checked={showDateTime}
                                     onChange={handleDateTimeToggle}
                                 />
                             </Form.Group>
                             {showDateTime && (
                                 <React.Fragment>
-                                    <legend>Ingresar fecha y hora</legend>
+                                    <legend>Include Date and Time</legend>
                                     <Form.Group className='mb-3'>
-                                        <Form.Label className='searchText'>Fecha</Form.Label>
+                                        <Form.Label className='searchText'>Date</Form.Label>
                                         <DatePicker
                                             selected={searchQuery.date}
                                             onChange={handleDateChange}
@@ -112,7 +120,7 @@ const VeterinarianSearch = ({ onSearchResult }) => {
                                         />
                                     </Form.Group>
                                     <Form.Group className='mb-3'>
-                                        <Form.Label className='searchText'>Hora</Form.Label>
+                                        <Form.Label className='searchText'>Time</Form.Label>
                                         <DatePicker
                                             selected={searchQuery.time}
                                             onChange={handleTimeChange}
@@ -133,14 +141,14 @@ const VeterinarianSearch = ({ onSearchResult }) => {
 
                 <div className='d-flex justify-content-center mb-4'>
                     <Button type='submit' variant='outline-primary'>
-                        Buscar
+                        Search
                     </Button>
                     <div className='mx-2'>
                         <Button
                             type='button'
                             variant='outline-info'
                             onClick={handleClearSearch}>
-                            Limpiar búsqueda
+                            Clear Search
                         </Button>
                     </div>
                 </div>

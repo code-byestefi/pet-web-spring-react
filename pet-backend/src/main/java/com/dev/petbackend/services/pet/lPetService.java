@@ -11,4 +11,9 @@ public interface lPetService {
     void deletePet(Long id);
     Pet getPetById(Long id);
 
+    List<String> getPetTypes();
+
+    List<String> getPetColors();
+
+    List<String> getPetBreeds(String petType);
 }
