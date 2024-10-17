@@ -51,3 +51,6 @@ El objetivo principal del sistema es **conectar veterinarios con dueños de masc
 
 ## UI - Home
 ![Interfaz de Usuario](documentation/ui-home.png "ui")
+
+## UI - Consultar Veterinarios
+![Interfaz de Usuario](documentation/ui-search.png "ui")
